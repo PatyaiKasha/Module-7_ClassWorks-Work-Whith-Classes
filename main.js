@@ -34,7 +34,7 @@ var imG = document.querySelectorAll('.img');
 for (var i = 0; i < imG.length; i++) {
     imG[i].onclick = function() {
         this.classList.toggle('imgSB');
-    }
+    };
 }
 
 // Задача 3.Создайте с помощью JS несколько блоков.Четным блокам добавьте класс bordered. Добавьте на все блоки событие клика. При клике удаляйте класс bordered. Обратите внимание, что происходит если клик осуществляется по элементу без данного класса.
@@ -50,11 +50,10 @@ function three() {
         if (i % 2 == 0) {
             blocks.classList.add('bordered');
         }
-
         blocks.onclick = function() {
             this.classList.toggle('bordered');
             calcBordered();
-        }
+        };
     }
 }
 
@@ -96,7 +95,7 @@ for (var i = 0; i < h1.length; i++) {
         accV2();
         this.nextElementSibling.classList.toggle('min');
         this.nextElementSibling.classList.toggle('opas');
-    }
+    };
 }
 
 // Задача 7. Используя код предыдущей задачи доработайте ее так, чтобы в один момент времени был виден только один элемент. Если кликают на другой элемент, то скрываются все открытые, а данный становится видимым.
@@ -112,22 +111,29 @@ function accV2() {
 
 // Задача 8. Создайте блок и поместите в него изображения. С помощью CSS позиционируйте изображения так, чтобы они располагались друг на друге. Добавьте всем кроме одного класс hide, который скрывает изображения. При клике на блоке скрывайте текущее изображение и показывайте следующее.
 
+// Получаем все картинки 8-й задачи по CSS-селектору '.imgBlock8 img'
 var img = document.querySelectorAll('.imgBlock8 img');
 
-for (var i = 0; i < img.length; i++) {
-
-    img[i].onclick = function() {
-        if (!this.classList.contains('hide') && this.nextElementSibling) {
-            this.classList.add('hide');
-            this.nextElementSibling.classList.toggle('hide');
-        } else {
-            this.classList.add('hide');
-            clearHide();
-        }
-    }
+for (var i = 1; i < img.length; i++) {
+    img[i].classList.add('hide');
 }
 
-function clearHide() {
-    var innerImg = document.querySelectorAll('.imgBlock8 img');
-    img[0].classList.remove('hide');
+// Проходим циклом по всем картинкам 8-й задачи
+for (var i = 0; i < img.length; i++) {
+    // При клике на картинку/элемент запускаем анонимную функцию
+    img[i].onclick = function() {
+        // Проверяем, есть ли у данного элемента class='hide' и есть ли у данного элемента следующий соседний элемент
+        if (!this.classList.contains('hide') && this.nextElementSibling) {
+            //Если true, то:
+            //1. Добавляем к элементу class='hide'
+            this.classList.add('hide');
+            //2. Переключаем class следующего соседнего элемента с 'hide' на не-'hide' ;)
+            this.nextElementSibling.classList.toggle('hide');
+        } else {
+            // если false, добавляем к данному элементу class='hide' и ...
+            this.classList.add('hide');
+            //... удаляем class='hide' у первого элемента массива
+            img[0].classList.remove('hide');
+        }
+    };
 }
